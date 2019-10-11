@@ -2,6 +2,7 @@
  * ...
  * @author fox
  */
+import GUI.fox.aswing.JFrame;
 import com.GameInterface.UtilsBase;
 import com.fox.CCC.BodyParts;
 import com.fox.CCC.Icon;
@@ -23,7 +24,7 @@ class com.fox.CCC.Mod {
 	private var d_Import:DistributedValue;
 	public var s_SerializedLook:String;
 	public var s_SerializedConfig:String;
-	private var s_minimized:Boolean;
+	private var s_Minimized:Boolean;
 	public var s_DisableIdle:Boolean;
 	
 	private var m_swfroot:MovieClip;
@@ -66,11 +67,11 @@ class com.fox.CCC.Mod {
 	}
 	private function DrawSettings(){
 		if (d_Settings.GetValue()){
-			if(!m_Settings)	m_Settings = new Settings(this, m_Settings_Pos, s_SerializedConfig, s_minimized);
+			if(!m_Settings)	m_Settings = new Settings(this, m_Settings_Pos, s_SerializedConfig, s_Minimized);
 		}else{
 			if (m_Settings){
 				m_Settings_Pos = m_Settings.getPos();
-				s_minimized = m_Settings.getMinimized();
+				s_Minimized = m_Settings.getMinimized();
 				m_Settings.dispose();
 				m_Settings = undefined;
 			}
@@ -83,7 +84,7 @@ class com.fox.CCC.Mod {
 		d_Enabled.SetValue(config.FindEntry("Enable"));
 		s_SerializedConfig = config.FindEntry("Config");
 		s_SerializedLook = config.FindEntry("Look");
-		s_minimized = config.FindEntry("Minimized", false);
+		s_Minimized = config.FindEntry("Minimized", false);
 		s_DisableIdle = config.FindEntry("DisableIdle", true);
 		
 		m_Char = Character.GetClientCharacter();
@@ -91,7 +92,6 @@ class com.fox.CCC.Mod {
 		DrawSettings();
 		setTimeout(Delegate.create(this, ApplyLooks), 1000);
 	}
-	
 	
 	public function Deactivate():Archive{
 		var config:Archive = new Archive();
@@ -106,15 +106,24 @@ class com.fox.CCC.Mod {
 		return config
 	}
 	
-	public function ApplyLooks(){
+	public function ApplyLooks(override:Array){
 		if (d_Enabled.GetValue()){
-			if (s_SerializedLook){
+			if (s_SerializedLook || override){
 				m_Char.RemoveAllLooksPackages();
-				if(s_DisableIdle) m_Char.SetBaseAnim("normal_idle");
+				if (s_DisableIdle && 
+					m_Settings && 
+					m_Settings.getState() == JFrame.NORMAL
+				){
+					m_Char.SetBaseAnim("normal_idle");
+				}
 				var Assassin = m_Char.GetStat(56) == 2 ? 33565 : 33565;
-				DressingRoom.PreviewNodeItem(Assassin);
-				DressingRoom.ClearPreview();
-				var pairs = s_SerializedLook.split(";");
+				var pairs:Array = override || s_SerializedLook.split(";");
+				if (pairs[0] != "norestore"){
+					DressingRoom.PreviewNodeItem(Assassin);
+					DressingRoom.ClearPreview();
+				}else{
+					pairs.shift();
+				}
 				for (var i in pairs){
 					var value = pairs[i].split(",");
 					m_Char.AddLooksPackage(Number(value[0]), Number(value[1]));
@@ -134,16 +143,24 @@ class com.fox.CCC.Mod {
 	}
 	
 	private function Import(dv:DistributedValue){
-		if (dv.GetValue()){
-			s_SerializedLook = dv.GetValue();
-			ApplyLooks();
+		var str:String = dv.GetValue()
+		if (str){
+			if (str.indexOf("nosave") == -1){
+				
+				s_SerializedLook = str;
+				ApplyLooks();
+			}else{
+				var arr:Array = str.split(";");
+				arr.shift();
+				ApplyLooks(arr);
+			}
 			dv.SetValue(false);
 		}
 	}
 	
 	private function Export(dv:DistributedValue){
 		if (dv.GetValue()){
-			UtilsBase.PrintChatText("\""+s_SerializedLook+"\"");
+			UtilsBase.PrintChatText("\"" + s_SerializedLook + "\"");
 			dv.SetValue(false);
 		}
 	}

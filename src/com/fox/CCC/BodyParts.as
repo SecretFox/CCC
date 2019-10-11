@@ -1,23 +1,44 @@
-import com.GameInterface.Game.Character;
-/**
- * ...
- * @author fox
- */
+/*
+* ...
+* @author fox
+*/
 class com.fox.CCC.BodyParts{
+	static var Head:Object = {};
+	static var Hair:Object = {};
+	static var Facial_Hair:Object = {};
+	static var Facial_Hair_Color:Object = {};
+	static var Makeup:Object = {};
+	static var Hair_Color:Array = [
+		[7116447, 9271247, 9280025],
+		[
+			[4555, 4556, 4557, 4558, 4630, 4632, 4633, 13001, 16520, 16521, 16524, 16525, 16593],
+			[27888, 27889, 27890, 27891, 27892, 27893, 27894, 27895, 27896, 27897, 27898, 27899, 27900, 27901, 27902, 27903],
+			[28138, 28139, 28140, 28141, 28142, 28143, 28144, 28145, 28146, 28147, 28148, 28149, 28150, 28152, 28153, 28156, 28157, 28185, 28186, 28266, 28267, 28268, 28269, 28270, 28271, 28272, 28273, 28335, 28336, 28338]
+		]
+	];
+	static var Facial_Details:Object = {};
+	static var Eyebrow_Color:Object = {};
+	static var Eye_Color:Array = [
+		[9279779, 7143014],
+		[
+			[28092, 28094, 28095, 28096, 28097, 28098, 28099, 28100, 28101, 28103, 28104, 28105, 28106, 28107, 28108, 28109, 28110, 28111, 28112, 28113, 28114, 28115, 28116],
+			[4849, 6740, 6741, 6748, 16594, 16595, 16596, 16597, 16598, 16599, 16600, 16601]
+		]
+	]
+	static var e_Head:Number = 0;
+	static var e_Face:Number = 1;
+	static var e_Hair:Number = 2;
+	static var e_Hair_Color:Number = 3;
+	static var e_Eye_Color:Number = 4;
+	static var e_Eyebrow_Color:Number = 5;
+	static var e_Facial_Detail:Number = 6;
+	static var e_Facial_Hair:Number = 7;
+	static var e_Facial_Hair_Color:Number = 8;
+	static var e_Makeup:Number = 9;
+	static var e_Makeup_Type:Number = 10;
 	
-	public var Head:Object = {};
-	public var Hair:Object = {};
-	public var Facial_Hair:Object = {};
-	public var Facial_Hair_Color:Object = {};
-	public var Makeup:Object = {};
-	public var Hair_Color:Object = {};
-	public var Facial_Details:Object = {};
-	
-	private var m_Char:Character;
-	
-	public function BodyParts() {
-		m_Char = Character.GetClientCharacter();
-		
+
+	public function BodyParts() {		
 		Head["Male"] = {}
 		Head["Male"]/*CC_headmesh_cau_male_01 */["6869378"] = [3629, 16290, 16291, 16292, 16293, 16294, 16295, 16296, 16298, 16299, 16300, 16301, 16302, 16303, 16304]
 		Head["Male"]/*CC_headmesh_asi_male_01 */["6869381"] = [3632, 4337, 4593, 16333, 16334, 16335, 16336, 16337, 16338, 16339, 16340, 16341, 16342, 16343, 16344]
@@ -105,13 +126,15 @@ class com.fox.CCC.BodyParts{
 		Head["Female"]/*F2P_CC_headmesh_his_Female_07 */["9288024"] = [28298]
 		
 		Hair["Male"] = {}
-		Hair["Male"]/*CC_hair_male*/["7116405"] = [0, 4549, 4550, 4551, 4565, 4566, 4567, 4568, 4569, 4570, 4571, 13002, 17078, 17080, 18620, 18621, 18622, 18623, 18624, 19017, 19018, 19019, 19020, 19021, 19022, 19023, 19024, 19029, 27932, 27935, 27937, 27938, 27939, 27940, 27993, 27994, 27995, 27996]
+		Hair["Male"]/*CC_hair_male*/["7116405"] = [4549, 4550, 4551, 4565, 4566, 4567, 4568, 4569, 4570, 4571, 13002, 17078, 17080, 18620, 18621, 18622, 18623, 18624, 19017, 19018, 19019, 19020, 19021, 19022, 19023, 19024, 19029, 27932, 27935, 27937, 27938, 27939, 27940, 27993, 27994, 27995, 27996]
 		Hair["Female"] = {}
-		Hair["Female"]/*CC_hair_female*/["7116432"] = [0, 4552, 4553, 4554, 4559, 4560, 4561, 4562, 4573, 4574, 4575, 4576, 4577, 4578, 4579, 4580, 4581, 4583, 4584, 17081, 18625, 18626, 18627, 18628, 18629, 18630, 18631, 18632, 18633, 19008, 19009, 19010, 19011, 19012, 19013, 19014, 19015, 19016, 19030, 27931, 27933, 27934, 27936, 27981, 27992]
+		Hair["Female"]/*CC_hair_female*/["7116432"] = [4552, 4553, 4554, 4559, 4560, 4561, 4562, 4573, 4574, 4575, 4576, 4577, 4578, 4579, 4580, 4581, 4583, 4584, 17081, 18625, 18626, 18627, 18628, 18629, 18630, 18631, 18632, 18633, 19008, 19009, 19010, 19011, 19012, 19013, 19014, 19015, 19016, 19030, 27931, 27933, 27934, 27936, 27981, 27992]
 		
-		Hair_Color/* CC_hair_tint */["7116447"] = [4555, 4556, 4557, 4558, 4630, 4632, 4633, 13001, 16520, 16521, 16524, 16525, 16593]
-		Hair_Color/* CC_hair_tint_neon */["9271247"] = [27888, 27889, 27890, 27891, 27892, 27893, 27894, 27895, 27896, 27897, 27898, 27899, 27900, 27901, 27902, 27903]
-		Hair_Color/* F2P_CC_hair_tint */["9280025"] = [28138, 28139, 28140, 28141, 28142, 28143, 28144, 28145, 28146, 28147, 28148, 28149, 28150, 28152, 28153, 28156, 28157, 28185, 28186, 28266, 28267, 28268, 28269, 28270, 28271, 28272, 28273, 28335, 28336, 28338]
+		/*Hair_Color CC_hair_tint ["7116447"] = [4555, 4556, 4557, 4558, 4630, 4632, 4633, 13001, 16520, 16521, 16524, 16525, 16593]
+		Hair_Color CC_hair_tint_neon["9271247"] = [27888, 27889, 27890, 27891, 27892, 27893, 27894, 27895, 27896, 27897, 27898, 27899, 27900, 27901, 27902, 27903]
+		Hair_Color F2P_CC_hair_tint ["9280025"] = [28138, 28139, 28140, 28141, 28142, 28143, 28144, 28145, 28146, 28147, 28148, 28149, 28150, 28152, 28153, 28156, 28157, 28185, 28186, 28266, 28267, 28268, 28269, 28270, 28271, 28272, 28273, 28335, 28336, 28338]
+		*/
+		Eyebrow_Color/* F2P_CC_eyebrow_tint */["9304852"] = [29035, 29036, 29037, 29038, 29039, 29040, 29041, 29042, 29043, 29044, 29045, 29046, 29047, 29048, 29049, 29050, 29051, 29052, 29053, 29054, 29055, 29056, 29057, 29058, 29059, 29060, 29061, 29062, 29063, 29064]
 		
 		Facial_Details["Male"] = {}
 		Facial_Details["Female"] = {}
@@ -255,24 +278,4 @@ class com.fox.CCC.BodyParts{
 		Makeup["Female"]/*CC_makeup_female_camo_stripes */["9130394"] = [26455]
 		Makeup["Female"]/*CC_makeup_female_camo_blotches */["9131869"] = [26457]
 	}
-	/*
-	public function Extract(ran){
-		m_Char.RemoveAllLooksPackages();
-		m_Char.SetBaseAnim("normal_idle");
-		m_Char.AddLooksPackage(6869380,0)
-		var found;
-		for (var id in Facial_Details){
-			if (Facial_Details[id].length == 0){
-				for (var i:Number = 1; i < 50000; i++){
-					m_Char.AddLooksPackage(Number(id), i);
-				}
-				UtilsBase.PrintChatText("Extracted " + id);
-				if(!ran)setTimeout(Delegate.create(this, Extract), 2000,true);
-				return
-			}
-			
-		}
-		UtilsBase.PrintChatText("None left")
-	}
-	*/
 }
