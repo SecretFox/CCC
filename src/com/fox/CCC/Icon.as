@@ -49,7 +49,7 @@ class com.fox.CCC.Icon {
 			m_Icon.onRollOver = Delegate.create(this, function() {
 				this.Tooltip.Close();
 				var m_TooltipData:TooltipData = new TooltipData();
-				m_TooltipData.m_Title = "<font size='14'>CustomCharacterCreator v.0.3.0</font>";
+				m_TooltipData.m_Title = "<font size='14'>CustomCharacterCreator v.0.4.0</font>";
 				m_TooltipData.m_Color = 0xE37904;
 				m_TooltipData.AddDescription("<font size='12'>Left click to open settings\n\nMoveable while in GUIEdit mode</font>");
 				m_TooltipData.m_MaxWidth = 300;
